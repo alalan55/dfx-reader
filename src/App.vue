@@ -1,19 +1,53 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ViewerPage :dxf-url="dxfUrl">
+      <div
+        v-if="inputFile === null"
+        class="centralUploader row justify-center items-center"
+      >
+        <div class="col-auto" style="width: 300px">
+          <input type="file" accept=".dxf" @change="_OnFileSelected" ref="fileInput" />
+          <div>
+            <small>File is processed locally in your browser</small>
+          </div>
+        </div>
+        <div class="col-auto" style="margin: 0 24px 24px">
+          <button @click="urlDialog = true">Load URL</button>
+        </div>
+      </div>
+    </ViewerPage>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import ViewerPage from "./components/viewerPage.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    ViewerPage,
+  },
+  data() {
+    return {
+      inputFile: null,
+      dxfUrl: null,
+      urlDialog: false,
+    };
+  },
+  methods: {
+    _OnFileSelected(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.inputFile = file;
+        this.dxfUrl = URL.createObjectURL(file);
+      }
+    },
+    _OnFileCleared() {
+      this.inputFile = null;
+      this.dxfUrl = null;
+      this.$refs.fileInput.value = null;
+    },
+  },
+};
 </script>
 
 <style>
