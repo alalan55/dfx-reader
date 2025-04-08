@@ -13,13 +13,13 @@
       />
     </div>
 
-    <div class="layersCol">
+    <!--   <div class="layersCol">
       <LayerList
         :layers="layers"
         @toggleLayer="onToggleLayer"
         @toggleAll="_OnToggleAll"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -28,7 +28,7 @@ import Vue from "vue";
 
 import DfxViewer from "./dfxViewer.vue";
 import { DxfViewer as _DxfViewer } from "dxf-viewer";
-import LayerList from "./layerList.vue";
+// import LayerList from "./layerList.vue";
 
 import mainFont from "../assets/fonts/Roboto-LightItalic.ttf";
 import aux1Font from "../assets/fonts/NotoSansDisplay-SemiCondensedLightItalic.ttf";
@@ -37,7 +37,7 @@ import aux3Font from "..//assets/fonts/NanumGothic-Regular.ttf";
 
 export default {
   name: "ViewerPage",
-  components: { LayerList, DfxViewer },
+  components: { DfxViewer },
 
   props: {
     dxfUrl: {
@@ -102,7 +102,7 @@ export default {
 <style scoped>
 .root {
   display: flex;
-  height: 100vh;
+  min-height: 95dvh;
   overflow: hidden;
 }
 
