@@ -19,7 +19,7 @@
 <script>
 import { DxfViewer } from "dxf-viewer";
 import * as THREE from "three";
-import DxfViewerWorker from "worker-loader!./dfxWorker"
+import DxfViewerWorker from "worker-loader!./dfxWorker";
 
 // const DxfViewerWorker = () =>
 //   new Worker(new URL("./dfxWorker.js", import.meta.url), { type: "module" });
@@ -140,7 +140,7 @@ export default {
     if (this.dxfUrl) {
       this.loadDxf(this.dxfUrl);
     }
- },
+  },
 
   destroyed() {
     this.dxfViewer?.Destroy();
@@ -162,14 +162,15 @@ export default {
 .loading {
   position: absolute;
   z-index: 10;
-  top: 10px;
-  left: 10px;
   background: rgba(255, 255, 255, 0.9);
   padding: 6px 12px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 4px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  top: 50%; /* position the top  edge of the element at the middle of the parent */
+  left: 50%; /* position the left edge of the element at the middle of the parent */
+  transform: translate(-50%, -50%);
 }
 
 .progress {

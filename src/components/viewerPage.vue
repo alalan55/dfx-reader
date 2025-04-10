@@ -13,22 +13,23 @@
       />
     </div>
 
+    <!--   
     <div class="layersCol">
       <LayerList
         :layers="layers"
         @toggleLayer="onToggleLayer"
-        @toggleAll="_OnToggleAll"
+        @toggleAll="onToggleAll"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import Vue from "vue";
+// import Vue from "vue";
 
 import DfxViewer from "./dfxViewer.vue";
 import { DxfViewer as _DxfViewer } from "dxf-viewer";
-import LayerList from "./layerList.vue";
+// import LayerList from "./layerList.vue";
 
 import mainFont from "../assets/fonts/Roboto-LightItalic.ttf";
 import aux1Font from "../assets/fonts/NotoSansDisplay-SemiCondensedLightItalic.ttf";
@@ -37,7 +38,7 @@ import aux3Font from "..//assets/fonts/NanumGothic-Regular.ttf";
 
 export default {
   name: "ViewerPage",
-  components: { LayerList, DfxViewer },
+  components: { DfxViewer },
 
   props: {
     dxfUrl: {
@@ -54,29 +55,29 @@ export default {
 
   methods: {
     onLoaded() {
-      const layers = this.$refs.viewer.GetViewer().GetLayers(true);
-      layers.forEach((layer) => Vue.set(layer, "isVisible", true));
-      this.layers = layers;
+      // const layers = this.$refs.viewer.GetViewer().GetLayers(true);
+      // layers.forEach((layer) => Vue.set(layer, "isVisible", true));
+      // this.layers = layers;
     },
 
     onCleared() {
       this.layers = null;
     },
 
-    onToggleLayer(layer, newState) {
-      layer.isVisible = newState;
-      this.$refs.viewer.GetViewer().ShowLayer(layer.name, newState);
-    },
+    // onToggleLayer(layer, newState) {
+    //   layer.isVisible = newState;
+    //   this.$refs.viewer.GetViewer().ShowLayer(layer.name, newState);
+    // },
 
-    _OnToggleAll(newState) {
-      if (this.layers) {
-        for (const layer of this.layers) {
-          if (layer.isVisible !== newState) {
-            this.onToggleLayer(layer, newState);
-          }
-        }
-      }
-    },
+    // onToggleAll(newState) {
+    //   if (this.layers) {
+    //     for (const layer of this.layers) {
+    //       if (layer.isVisible !== newState) {
+    //         this.onToggleLayer(layer, newState);
+    //       }
+    //     }
+    //   }
+    // },
 
     onMessage(e) {
       let type = "info";
@@ -102,7 +103,7 @@ export default {
 <style scoped>
 .root {
   display: flex;
-  height: 100vh;
+  min-height: 95dvh;
   overflow: hidden;
 }
 
