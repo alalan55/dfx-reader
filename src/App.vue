@@ -1,22 +1,6 @@
 <template>
   <div id="app">
-    <ViewerPage :dxf-url="dxfUrl">
-      oi {{ currentPath }}
-      <div
-        v-if="inputFile === null"
-        class="centralUploader row justify-center items-center"
-      >
-        <div class="col-auto" style="width: 300px">
-          <input type="file" accept=".dxf" @change="onFileSelected" ref="fileInput" />
-          <div>
-            <small>File is processed locally in your browser</small>
-          </div>
-        </div>
-        <div class="col-auto" style="margin: 0 24px 24px">
-          <button @click="urlDialog = true">Load URL</button>
-        </div>
-      </div>
-    </ViewerPage>
+    <ViewerPage :dxf-url="dxfUrl" />
   </div>
 </template>
 
@@ -36,37 +20,37 @@ export default {
   },
   data() {
     return {
-      inputFile: null,
       dxfUrl: null,
-      urlDialog: false,
-      currentPath: "",
     };
   },
   methods: {
     onMessageFromParent(event) {
-      if (event.origin === "http://localhost:3000") {
-        this.currentPath = event.data.href;
-      }
+      if (event.origin === process.env.VUE_APP_URL_RECIEVER)
+        this.dxfUrl = event.data.arquivo_link;
     },
-    onFileSelected(event) {
-      const file = event.target.files[0];
-      if (file) {
-        this.inputFile = file;
-        this.dxfUrl = URL.createObjectURL(file);
-      }
-    },
-    onFileCleared() {
-      this.inputFile = null;
-      this.dxfUrl = null;
-      this.$refs.fileInput.value = null;
-    },
-  },
-  computed: {
-    // currentPath() {
-    //   // return window?.parent.location;
-    //   console.log(document.referrer, '1')
-    //   console.log(document.location, '2')
-    //   return window.location != window.parent.location ? document.referrer : document.location.href
+    // async getPreSignedLink({ arquivo_link, token }) {
+    //   try {
+    //     const req = await fetch(
+    //       `https://tanodocs-api.juejkf.easypanel.host/arquivo/generate-s3-get-link`,
+    //       {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Authorization: `Bearer ${token}`,
+    //         },
+    //         body: JSON.stringify({
+    //           arquivo_link: arquivo_link,
+    //           arquivo_descricao: `file.dxf`,
+    //         }),
+    //       }
+    //     );
+
+    //     const res = await req.json();
+
+    //     console.log(res);
+    //   } catch (error) {
+    //     console.error("Err:", error);
+    //   }
     // },
   },
 };

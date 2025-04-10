@@ -13,18 +13,19 @@
       />
     </div>
 
-    <!--   <div class="layersCol">
+    <!--   
+    <div class="layersCol">
       <LayerList
         :layers="layers"
         @toggleLayer="onToggleLayer"
-        @toggleAll="_OnToggleAll"
+        @toggleAll="onToggleAll"
       />
     </div> -->
   </div>
 </template>
 
 <script>
-import Vue from "vue";
+// import Vue from "vue";
 
 import DfxViewer from "./dfxViewer.vue";
 import { DxfViewer as _DxfViewer } from "dxf-viewer";
@@ -54,29 +55,29 @@ export default {
 
   methods: {
     onLoaded() {
-      const layers = this.$refs.viewer.GetViewer().GetLayers(true);
-      layers.forEach((layer) => Vue.set(layer, "isVisible", true));
-      this.layers = layers;
+      // const layers = this.$refs.viewer.GetViewer().GetLayers(true);
+      // layers.forEach((layer) => Vue.set(layer, "isVisible", true));
+      // this.layers = layers;
     },
 
     onCleared() {
       this.layers = null;
     },
 
-    onToggleLayer(layer, newState) {
-      layer.isVisible = newState;
-      this.$refs.viewer.GetViewer().ShowLayer(layer.name, newState);
-    },
+    // onToggleLayer(layer, newState) {
+    //   layer.isVisible = newState;
+    //   this.$refs.viewer.GetViewer().ShowLayer(layer.name, newState);
+    // },
 
-    _OnToggleAll(newState) {
-      if (this.layers) {
-        for (const layer of this.layers) {
-          if (layer.isVisible !== newState) {
-            this.onToggleLayer(layer, newState);
-          }
-        }
-      }
-    },
+    // onToggleAll(newState) {
+    //   if (this.layers) {
+    //     for (const layer of this.layers) {
+    //       if (layer.isVisible !== newState) {
+    //         this.onToggleLayer(layer, newState);
+    //       }
+    //     }
+    //   }
+    // },
 
     onMessage(e) {
       let type = "info";
